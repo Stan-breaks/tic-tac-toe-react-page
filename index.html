@@ -45,8 +45,6 @@
           nextSquares[i]='O';
          }
          onPlay(nextSquares);
-         setSquares(nextSquares);
-         setXIsNext(!xIsNext);
         }
        return (
        <> 
@@ -93,11 +91,26 @@
         const[xIsNext,setXIsNext]=React.useState(true);
         const[history,setHistory]=React.useState([Array(9).fill(null)]);
         const currentSquares = history[history.length - 1]
-        console.log(current)
         function handlePlay(nextSquares){
          setHistory([...history,nextSquares]);
          setXIsNext(!xIsNext);
         }
+        function jumpTo(nextMove){
+          const moves =history.map((squares,move)=>{
+          if(move>0){
+            description='Go to move #'+move;
+          }
+          else{
+            description='Go to game start';
+          }
+        });
+        return (
+          <li>
+            <button onClick={()=>jumpTo(move)}>{description}</button>
+            </li>
+        );
+        }
+        
         return (
           <div className='game'>
             <div className='game-board'>
